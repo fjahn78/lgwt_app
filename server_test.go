@@ -16,7 +16,7 @@ type StubPlayerStore struct {
 	league   []Player
 }
 
-func (s  *StubPlayerStore) GetLeague() []Player {
+func (s *StubPlayerStore) GetLeague() []Player {
 	return s.league
 }
 
@@ -125,6 +125,10 @@ func TestLeague(t *testing.T) {
 		server.ServeHTTP(response, request)
 
 		var got = getLeagueFromResponse(t, response.Body)
+
+		if response.Result().Header.Get("content-type") != "application/json" {
+			t.Errorf("response did not have content-type of application/json, got %v", response.Result().Header)
+		}
 
 		assertStatus(t, response.Code, http.StatusOK)
 
