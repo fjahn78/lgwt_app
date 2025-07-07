@@ -15,7 +15,7 @@ type InMemoryPlayerStore struct {
 }
 
 func (i *InMemoryPlayerStore) GetPlayerScore(name string) int {
-	i.lock.Lock()
+	i.lock.RLock()
 	defer i.lock.RUnlock()
 	return i.store[name]
 }
