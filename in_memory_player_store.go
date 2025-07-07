@@ -9,6 +9,10 @@ func NewInMemoryPlayerStore() *InMemoryPlayerStore {
 	}
 }
 
+func (i  *InMemoryPlayerStore) GetLeague() []Player {
+	return nil
+}
+
 type InMemoryPlayerStore struct {
 	store map[string]int
 	lock  sync.RWMutex
