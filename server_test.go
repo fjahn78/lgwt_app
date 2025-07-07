@@ -31,44 +31,44 @@ func TestGETPlayers(t *testing.T) {
 	}
 	server := &PlayerServer{&store}
 
-	tests := []struct{
-		name string
-		player string
+	tests := []struct {
+		name               string
+		player             string
 		expectedHttpStatus int
-		expectedScore string
+		expectedScore      string
 	}{
 		{
-			name: "Returns Pepper's score",
-			player: "Pepper",
+			name:               "Returns Pepper's score",
+			player:             "Pepper",
 			expectedHttpStatus: http.StatusOK,
-			expectedScore: "20",
+			expectedScore:      "20",
 		},
 		{
-			name: "Returns Floyd's score",
-			player: "Floyd",
+			name:               "Returns Floyd's score",
+			player:             "Floyd",
 			expectedHttpStatus: http.StatusOK,
-			expectedScore: "10",
+			expectedScore:      "10",
 		},
 		{
-			name: "Returns 404 on missing players",
-			player: "Apollo",
+			name:               "Returns 404 on missing players",
+			player:             "Apollo",
 			expectedHttpStatus: http.StatusNotFound,
-			expectedScore: "0",
+			expectedScore:      "0",
 		},
 	}
 	for _, tt := range tests {
-		
+
 		t.Run(tt.name, func(t *testing.T) {
 			request := newGetScoreRequest(tt.player)
 			response := httptest.NewRecorder()
-			
+
 			server.ServeHTTP(response, request)
-			
+
 			assertStatus(t, response.Code, tt.expectedHttpStatus)
 			assertResponseBody(t, response.Body.String(), tt.expectedScore)
 		})
 	}
-	
+
 }
 
 func TestStoreWins(t *testing.T) {
@@ -98,12 +98,25 @@ func TestStoreWins(t *testing.T) {
 	})
 }
 
+func TestLeague(t *testing.T) {
+	store := StubPlayerStore{}
+	server := &PlayerServer{&store}
+
+	t.Run("it returns 200 on /league", func(t *testing.T) {
+		request, _ := http.NewRequest(http.MethodGet, "/league", nil)
+		response := httptest.NewRecorder()
+
+		server.ServeHTTP(response, request)
+
+		assertStatus(t, response.Code, http.StatusOK)
+
+	})
+}
+
 func newPostWinRequest(name string) *http.Request {
 	request, _ := http.NewRequest(http.MethodPost, fmt.Sprintf("/players/%s", name), nil)
 	return request
 }
-
-
 
 func assertStatus(t *testing.T, got int, want int) {
 	t.Helper()
