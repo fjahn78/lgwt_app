@@ -135,6 +135,7 @@ func TestLeague(t *testing.T) {
 	})
 }
 
+// assertContentType checks that the response has the expected content type.
 func assertContentType(t testing.TB, response *httptest.ResponseRecorder, want string) {
 	t.Helper()
 	if response.Result().Header.Get("content-type") != want {
