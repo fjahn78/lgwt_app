@@ -6,11 +6,11 @@ import (
 )
 
 func TestFileSystemPlayerStore(t *testing.T) {
-	database := strings.NewReader(`[
-		{"Name": "Cleo", "Wins": 10},
-		{"Name": "Chris", "Wins": 33}]`)
 	t.Run("league from a reader", func(t *testing.T) {
-
+		database, cleanDatabase := createTempFile(t, `[
+				{"Name": "Cleo", "Wins": 10},
+				{"Name": "Chris", "Wins": 33}]`)
+		defer cleanDatabase()
 		store := FileSystemPlayerStore{database}
 
 		got := store.GetLeague()
@@ -28,8 +28,13 @@ func TestFileSystemPlayerStore(t *testing.T) {
 
 	})
 	t.Run("get player score", func(t *testing.T) {
-		store := FileSystemPlayerStore{database: database}
+		database, cleanDatabase := createTempFile(t, `[
+			{"Name": "Cleo", "Wins": 10},
+			{"Name": "Chris", "Wins": 33}]`)
+		defer cleanDatabase()
 
+		store := FileSystemPlayerStore{database: database}
+		
 		got := store.GetPlayerScore("Chris")
 
 		want := 33
