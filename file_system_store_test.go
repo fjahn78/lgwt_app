@@ -57,7 +57,7 @@ func TestFileSystemPlayerStore(t *testing.T) {
 		want := 34
 
 		assertScoreEquals(t, got, want)
-	}
+	})
 }
 
 func createTempFile(t testing.TB, initialData string) (io.ReadWriteSeeker, func()) {
