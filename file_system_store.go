@@ -12,7 +12,7 @@ type FileSystemPlayerStore struct {
 func (f *FileSystemPlayerStore) RecordWin(name string) {
 	league := f.GetLeague()
 
-	player := l.Find(name)	
+	player := league.Find(name)	
 	if player != nil {
 		player.Wins++
 	}
@@ -24,7 +24,7 @@ func (f *FileSystemPlayerStore) RecordWin(name string) {
 func (f *FileSystemPlayerStore) GetPlayerScore(name string) int {
 	var wins int
 
-	player := l.Find(name)	
+	player := f.GetLeague().Find(name)	
 	if player != nil {
 		return player.Wins
 	}
