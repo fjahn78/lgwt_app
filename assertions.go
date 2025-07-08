@@ -3,7 +3,7 @@ package main
 import (
 	"testing"
 	"reflect"
-	"net/httptest"
+	"net/http/httptest"
 )
 
 // assertContentType checks that the response has the expected content type.
