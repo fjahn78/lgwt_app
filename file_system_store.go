@@ -8,6 +8,10 @@ type FileSystemPlayerStore struct {
 	database io.ReadWriteSeeker
 }
 
+func (f *FileSystemPlayerStore) RecordWin(name string) {
+	
+}
+
 func (f *FileSystemPlayerStore) GetPlayerScore(name string) int {
 	var wins int
 
