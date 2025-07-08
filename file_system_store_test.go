@@ -37,3 +37,20 @@ func TestFileSystemPlayerStore(t *testing.T) {
 		assertScoreEquals(t, got, want)
 	})
 }
+
+func createTempFile(t testing.TB, initialData string) (io.ReadWriteSeeker, func()) {
+	t.Helper()
+	tempfile, err := os.CreateTemp("", "db")
+	if err != nil {
+		t.Fatalf("could not create temp file: %v", err)
+	}
+
+	tempfile.Write([]byte(initialData))
+
+	removeFile := func() {
+		tempfile.Close()
+		os.Remove(tempfile.Name())
+	}
+
+	return tempfile, removeFile
+}
