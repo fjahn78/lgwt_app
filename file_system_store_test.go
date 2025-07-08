@@ -58,7 +58,7 @@ func TestFileSystemPlayerStore(t *testing.T) {
 
 		assertScoreEquals(t, got, want)
 	})
-	t.Run("store wins for new players", func(){
+	t.Run("store wins for new players", func(t *testing.T){
 				database, cleanDatabase := createTempFile(t, `[
 			{"Name": "Cleo", "Wins": 10},
 			{"Name": "Chris", "Wins": 33}]`)
