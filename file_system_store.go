@@ -31,7 +31,7 @@ func (f *FileSystemPlayerStore) GetPlayerScore(name string) int {
 	return 0
 }
 
-func (f FileSystemPlayerStore) GetLeague() []Player {
+func (f FileSystemPlayerStore) GetLeague() League {
 	f.database.Seek(0, io.SeekStart)
 	league, _ := NewLeague(f.database)
 	return league
