@@ -1,5 +1,11 @@
 package main
 
+import (
+	"testing"
+	"reflect"
+	"net/httptest"
+)
+
 // assertContentType checks that the response has the expected content type.
 func assertContentType(t testing.TB, response *httptest.ResponseRecorder, want string) {
 	t.Helper()
