@@ -1,7 +1,8 @@
 package main
 
 import (
-	"strings"
+	"io"
+	"os"
 	"testing"
 )
 
