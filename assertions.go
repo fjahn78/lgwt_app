@@ -35,7 +35,7 @@ func assertResponseBody(t testing.TB, got, want string) {
 	}
 }
 
-func assertPlayerScore(t testing.TB, got, want int) {
+func assertScoreEquals(t testing.TB, got, want int) {
 	t.Helper()
 	if got != want {
 			t.Errorf("got %d want %d", got, want)

@@ -34,6 +34,6 @@ func TestFileSystemPlayerStore(t *testing.T) {
 
 		want := 33
 
-		assertPlayerScore(t, got, want)
+		assertScoreEquals(t, got, want)
 	})
 }
