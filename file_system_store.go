@@ -22,8 +22,6 @@ func (f *FileSystemPlayerStore) RecordWin(name string) {
 }
 
 func (f *FileSystemPlayerStore) GetPlayerScore(name string) int {
-	var wins int
-
 	player := f.GetLeague().Find(name)	
 	if player != nil {
 		return player.Wins
