@@ -6,6 +6,13 @@ import (
 	"net/http/httptest"
 )
 
+func assertNoError(t testing.TB, err error){
+	t.Helper()
+	if err != nil {
+		t.Fatalf("didn't expect an error but got one, %v", err)
+	}
+}
+
 // assertContentType checks that the response has the expected content type.
 func assertContentType(t testing.TB, response *httptest.ResponseRecorder, want string) {
 	t.Helper()
