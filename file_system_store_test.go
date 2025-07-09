@@ -35,7 +35,7 @@ func TestFileSystemPlayerStore(t *testing.T) {
 			{"Name": "Chris", "Wins": 33}]`)
 		defer cleanDatabase()
 
-		store := FileSystemPlayerStore{database: database}
+		store := NewFileSystemPlayerStore(database)
 		
 		got := store.GetPlayerScore("Chris")
 
