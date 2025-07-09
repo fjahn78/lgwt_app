@@ -1,7 +1,6 @@
 package main
 
 import (
-	"io"
 	"os"
 	"testing"
 )
@@ -36,7 +35,7 @@ func TestFileSystemPlayerStore(t *testing.T) {
 		defer cleanDatabase()
 
 		store := NewFileSystemPlayerStore(database)
-		
+
 		got := store.GetPlayerScore("Chris")
 
 		want := 33
@@ -58,8 +57,8 @@ func TestFileSystemPlayerStore(t *testing.T) {
 
 		assertScoreEquals(t, got, want)
 	})
-	t.Run("store wins for new players", func(t *testing.T){
-				database, cleanDatabase := createTempFile(t, `[
+	t.Run("store wins for new players", func(t *testing.T) {
+		database, cleanDatabase := createTempFile(t, `[
 			{"Name": "Cleo", "Wins": 10},
 			{"Name": "Chris", "Wins": 33}]`)
 		defer cleanDatabase()
@@ -75,7 +74,7 @@ func TestFileSystemPlayerStore(t *testing.T) {
 	})
 }
 
-func createTempFile(t testing.TB, initialData string) (io.ReadWriteSeeker, func()) {
+func createTempFile(t testing.TB, initialData string) (*os.File, func()) {
 	t.Helper()
 	tempfile, err := os.CreateTemp("", "db")
 	if err != nil {
