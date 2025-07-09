@@ -10,12 +10,13 @@ const dbFileName = "game.db.json"
 
 func main() {
 	db, err := os.OpenFile(dbFileName, os.O_RDWR|os.O_CREATE, 0666)
-	defer db.Close()
 
 	if err != nil {
 		log.Fatalf("error opening %s %v", dbFileName, err)
 	}
-	store := &FileSystemPlayerStore{db}
+	defer db.Close()
+
+	store := NewFileSystemPlayerStore(db)
 
 	server := NewPlayerServer(store)
 	if err := http.ListenAndServe(":5000", server); err != nil {
