@@ -80,12 +80,12 @@ func TestGETPlayers(t *testing.T) {
 }
 
 func TestStoreWins(t *testing.T) {
-	store := StubPlayerStore{
+	store := &StubPlayerStore{
 		map[string]int{},
 		nil,
 		nil,
 	}
-	server := NewPlayerServer(&store)
+	server := NewPlayerServer(store)
 
 	t.Run("it records wins on POST", func(t *testing.T) {
 		player := "Pepper"
@@ -97,14 +97,20 @@ func TestStoreWins(t *testing.T) {
 
 		assertStatus(t, response.Code, http.StatusAccepted)
 
-		if len(store.winCalls) != 1 {
-			t.Fatalf("got %d calls to RecordWin. Want %d", len(store.winCalls), 1)
-		}
-
-		if store.winCalls[0] != player {
-			t.Errorf("did not store correct winner. got %q want %q", store.winCalls[0], player)
-		}
+		assertPlayerWin(t, store, player)
 	})
+}
+
+func assertPlayerWin(t testing.TB, store *StubPlayerStore, winner string) {
+	t.Helper()
+
+	if len(store.winCalls) != 1 {
+		t.Fatalf("got %d calls to RecordWin. Want %d", len(store.winCalls), 1)
+	}
+
+	if store.winCalls[0] != winner {
+		t.Errorf("did not store correct winner. got %q want %q", store.winCalls[0], winner)
+	}
 }
 
 func TestLeague(t *testing.T) {
@@ -115,8 +121,8 @@ func TestLeague(t *testing.T) {
 			{"Tiest", 14},
 		}
 
-		store := StubPlayerStore{nil, nil, wantedLeague}
-		server := NewPlayerServer(&store)
+		store := &StubPlayerStore{nil, nil, wantedLeague}
+		server := NewPlayerServer(store)
 
 		request := newLeagueRequest()
 		response := httptest.NewRecorder()
