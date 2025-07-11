@@ -1,4 +1,5 @@
-image: ${DOCKER_REGISTRY}/golang:1.24-alpine
+image: golang:1.24-alpine
+# image: ${DOCKER_REGISTRY}/golang:1.24-alpine
 
 stages:
   - test
