@@ -14,7 +14,7 @@ type FileSystemPlayerStore struct {
 }
 
 func NewFileSystemPlayerStore(file *os.File) (*FileSystemPlayerStore, error) {
-	
+
 	if err := initializePlayerDbFile(file); err != nil {
 		return nil, err
 	}
@@ -38,7 +38,7 @@ func FileSystemPlayerStoreFromFile(path string) (*FileSystemPlayerStore, func(),
 		return nil, nil, fmt.Errorf("problem opening %s %v", path, err)
 	}
 
-	closeFunc := func ()  {
+	closeFunc := func() {
 		db.Close()
 	}
 

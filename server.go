@@ -70,4 +70,3 @@ func (p *PlayerServer) showScore(w http.ResponseWriter, player string) {
 
 	fmt.Fprint(w, score)
 }
-

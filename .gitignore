@@ -1,2 +1,3 @@
+bin/
 coverage.out
-lgwt_app
+game.db.json
