@@ -3,6 +3,8 @@ test:
 	go vet $(go list ./... | grep -v /vendor/)
 	go test -v -race $(go list ./... | grep -v /vendor/)
 
-build:
-	mkdir bin
+build: bin
 	go build -o bin ./...
+
+bin:
+	@mkdir bin
