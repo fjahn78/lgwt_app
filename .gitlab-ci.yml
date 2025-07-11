@@ -17,7 +17,7 @@ compile:
     - make build
   artifacts:
     paths:
-      - mybinaries
+      - bin
 
 deploy:
   stage: deploy
